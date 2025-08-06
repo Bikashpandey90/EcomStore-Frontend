@@ -75,6 +75,7 @@ const PopularProducts = () => {
                         isFeatured={activeTab === "featured" || index % 4 === 0}
                         isBestseller={activeTab === "bestsellers" || index % 5 === 0}
                         productId={product._id}
+                        minOrderQuantity={product?.minOrderQuantity ?? 1}
                     />
                 ))}
             </div>

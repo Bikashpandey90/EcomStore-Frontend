@@ -314,6 +314,7 @@ export default function CategoryListPage() {
                                 reviews={50 + index * 5}
 
                                 productId={product._id}
+                                minOrderQuantity={product?.minOrderQuantity ?? 1}
                             />
 
 

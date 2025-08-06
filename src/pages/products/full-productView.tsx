@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { ChevronDown, ChevronUp, Heart, MessageCircle, ShoppingCart, Star } from "lucide-react"
+import { ChevronDown, ChevronUp, Heart, MessageCircle, ShoppingCart, Star } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -17,14 +17,8 @@ import { toast } from "react-toastify"
 import { ProductCard } from "@/components/Product Card/productCard"
 import wishListSvc from "../wishlist/wishlist.service"
 
-
-// Mock data for related products
-
-
 export default function ProductView() {
-
   const [product, setProduct] = useState<Product | null>(null)
-
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [showFullDescription, setShowFullDescription] = useState(false)
@@ -34,10 +28,8 @@ export default function ProductView() {
   const [activeTab] = useState("all")
   const [filledHeart, setiFilledHeart] = useState(false)
   const [wishlistId, setWishListId] = useState<string>('')
-
-
   const [relatedProducts, setRelatedProduct] = useState<Product[]>([])
-  // Get the first paragraph of description for the preview
+
   const { slug } = useParams()
   const cartContext = useContext(CartContext)
   const auth = useContext(AuthContext) as { loggedInUser: any }
@@ -45,38 +37,51 @@ export default function ProductView() {
   if (!cartContext) {
     return null
   }
+
   const { addToCart } = cartContext
 
   const fetchProduct = async () => {
     try {
       const response = await productSvc.fetchProductBySlug(slug as string)
-      setProduct(response.data.detail.product)
-      console.log("Fetched Product", product)
+      const fetchedProduct = response.data.detail.product
+      setProduct(fetchedProduct)
+      
+      // Initialize quantity with minOrderQuantity when product is loaded
+      const minQty = fetchedProduct?.minOrderQuantity ?? 1
+      setQuantity(minQty)
+      
+      console.log("Fetched Product", fetchedProduct)
       setRelatedProduct(response.data.detail.related)
-
     } catch (exception) {
       console.log(exception)
     }
   }
+
   useEffect(() => {
     fetchProduct()
   }, [slug])
+
+  // Update quantity when product changes (for navigation between products)
+  useEffect(() => {
+    if (product) {
+      const minQty = product?.minOrderQuantity ?? 1
+      setQuantity(minQty)
+    }
+  }, [product?._id]) // Only trigger when product ID changes
 
   const addtoWishList = async (id: string) => {
     try {
       const response = await wishListSvc.wishlist(id)
       console.log(response)
       checkWishlist()
-
       if (response?.data?.status === 'ADD_TO_WISHLIST_SUCCESS') {
         setiFilledHeart(true)
       }
-
-
     } catch (exception) {
       console.log(exception)
     }
   }
+
   const removeFromWishlist = async (id: string) => {
     try {
       const response = await wishListSvc.removeWishlist(id);
@@ -94,35 +99,28 @@ export default function ProductView() {
       const response = await wishListSvc.getMyWishList()
       const wishlist = response.data.detail
 
-      // if (product && wishlist.some((item: any) => item.productId === product._id)) {
-      //   setiFilledHeart(true);
-      //   setWishListId(product._id)
-
-      // }
       if (product) {
         const wishlistItem = wishlist.find((item: any) => item.productId === product._id);
         if (wishlistItem) {
           setiFilledHeart(true);
-          setWishListId(wishlistItem._id); // Store the correct wishlist item ID
+          setWishListId(wishlistItem._id);
         }
       }
-
-
     } catch (exception) {
       console.log(exception)
     }
   }
+
   useEffect(() => {
     if (product) {
       checkWishlist();
     }
   }, [product]);
 
-
-
   const descriptionPreview = product ? product?.description?.split("\n\n")[0] : ""
 
-
+  // Get minimum order quantity for this product
+  const minOrderQuantity = product?.minOrderQuantity ?? 1
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -142,7 +140,7 @@ export default function ProductView() {
             {product && product.images.map((image: string, index: number) => (
               <div
                 key={index}
-                className={`cursor-pointer border-2 rounded-md overflow-hidden ${selectedImage === product.images[index] ? "border-primary" : "border-border"}`}
+                className={`cursor-pointer border-2 rounded-md overflow-hidden ${selectedImage === index ? "border-primary" : "border-border"}`}
                 onClick={() => setSelectedImage(index)}
               >
                 <img
@@ -191,6 +189,11 @@ export default function ProductView() {
                   <Badge className="bg-red-500 hover:bg-red-600">{product?.discount}% OFF</Badge>
                 </>
               )}
+              {(product?.discountOnQuantity ?? 0) > 0 && (
+                <>
+                  <Badge className="bg-orange-500 hover:bg-orange-600">Get additional {product?.discountOnQuantity}% OFF with each quantity</Badge>
+                </>
+              )}
             </div>
             <p
               className={`text-sm ${product?.stock ?? 0 > 10 ? "text-green-600" : product?.stock ?? 0 > 0 ? "text-amber-600" : "text-red-600"}`}
@@ -201,51 +204,58 @@ export default function ProductView() {
                   ? `Only ${product?.stock} left in stock`
                   : "Out of Stock"}
             </p>
+            {minOrderQuantity > 1 && (
+              <p className="text-sm text-muted-foreground mt-1">
+                Minimum order quantity: {minOrderQuantity}
+              </p>
+            )}
           </div>
 
           <div className="mb-6">
             <div className="flex items-center space-x-4 mb-6">
               <div className="flex items-center border rounded-md">
                 <button
-                  className="px-3 py-2 border-r"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="px-3 py-2 border-r hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={() => setQuantity(Math.max(minOrderQuantity, quantity - 1))}
+                  disabled={quantity <= minOrderQuantity}
                   aria-label="Decrease quantity"
                 >
                   -
                 </button>
-                <span className="px-4 py-2">{quantity}</span>
+                <span className="px-4 py-2 min-w-[60px] text-center">{quantity}</span>
                 <button
-                  className="px-3 py-2 border-l"
+                  className="px-3 py-2 border-l hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={() => setQuantity(Math.min(product?.stock ?? 0, quantity + 1))}
+                  disabled={quantity >= (product?.stock ?? 0)}
                   aria-label="Increase quantity"
                 >
                   +
                 </button>
               </div>
-              <Button className="flex-1" disabled={product?.stock === 0 || loading}
+              <Button 
+                className="flex-1" 
+                disabled={product?.stock === 0 || loading}
                 onClick={() => {
                   if (!auth.loggedInUser) {
                     navigate('/login')
                     toast.info("You need to login first")
+                    return
                   }
                   if (auth.loggedInUser.role === 'seller') {
                     toast.info("Access denied for seller")
+                    return
                   }
                   if (product?._id) {
                     const id: string = product._id;
-                    const quantity = 1;
-                    addToCart(id, quantity);
+                    addToCart(id, quantity); // Use the current quantity state
                   }
-
                 }}
-
               >
                 <ShoppingCart className="mr-2 h-4 w-4" />
                 Add to Cart
               </Button>
               <Button variant="outline" size="icon" aria-label="Add to wishlist"
                 onClick={() => {
-
                   if (filledHeart === true) {
                     removeFromWishlist(wishlistId)
                   } else {
@@ -254,16 +264,11 @@ export default function ProductView() {
                   }
                 }}>
                 <Heart className={`h-4 w-4 ${filledHeart ? "fill-red-500 text-red-500" : ""}`} />
-
               </Button>
             </div>
 
             <div className="space-y-4">
-              <div>
-                <h3 className="font-medium mb-2">Sold by</h3>
-                <p>{product?.seller.name}</p>
-              </div>
-
+            
               <div>
                 <h3 className="font-medium mb-2">Description</h3>
                 <div className="text-sm text-muted-foreground">
@@ -289,11 +294,12 @@ export default function ProductView() {
               </div>
             </div>
           </div>
+
           {/* Seller/Shop Information */}
           <div className="mt-8 p-4 bg-muted rounded-lg">
             <div className="flex items-center space-x-4">
               <Avatar className="h-16 w-16">
-                <AvatarImage src={product?.seller?.image} alt={product?.seller.name} />
+                <AvatarImage src={product?.seller?.image || "/placeholder.svg"} alt={product?.seller.name} />
                 <AvatarFallback>
                   {product?.seller.name
                     .split(" ")
@@ -338,36 +344,9 @@ export default function ProductView() {
         <h2 className="text-2xl font-bold mb-6">Related Products</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {relatedProducts.map((product: Product, index: number) => (
-            // <Card key={product?._id} className="overflow-hidden">
-            //   <div className="aspect-square relative">
-            //     <img
-            //       onClick={() => {
-
-            //         navigate(`/products/${product.slug}`)
-            //         fetchProduct()
-
-            //       }}
-            //       src={product?.images[0] || "/placeholder.svg"}
-            //       alt={product?.title}
-            //       className="object-cover h-full w-full"
-            //     />
-            //   </div>
-            //   <CardContent className="p-2 sm:p-4">
-            //     <h3 className="font-medium text-xs sm:text-sm line-clamp-2 mb-1 sm:mb-2">{product?.title}</h3>
-            //     <div className="flex items-baseline space-x-2">
-            //       <span className="font-bold text-sm sm:text-base">Nrs {formatNumber(product?.actualAmt)}</span>
-            //       {product?.discount > 0 && (
-            //         <span className="text-xs sm:text-sm text-muted-foreground line-through">
-            //           {formatNumber(product?.price)}
-            //         </span>
-            //       )}
-            //     </div>
-            //   </CardContent>
-            // </Card>
-
             <ProductCard
               onClick={product.slug}
-              key={index}
+              key={`related-${product._id}-${index}`}
               name={product.title}
               image={product.images[0]}
               price={product.actualAmt}
@@ -377,29 +356,11 @@ export default function ProductView() {
               isFeatured={activeTab === "featured" || index % 4 === 0}
               isBestseller={activeTab === "bestsellers" || index % 5 === 0}
               productId={product._id}
-            />
-          ))}
-
-          {relatedProducts.map((product: Product, index: number) => (
-
-            <ProductCard
-              onClick={product.slug}
-              key={index}
-              name={product.title}
-              image={product.images[0]}
-              price={product.actualAmt}
-              rating={4 + (index % 2) * 0.5}
-              reviews={50 + index * 5}
-              isNew={activeTab === "new" || index % 3 === 0}
-              isFeatured={activeTab === "featured" || index % 4 === 0}
-              isBestseller={activeTab === "bestsellers" || index % 5 === 0}
-              productId={product._id}
+              minOrderQuantity={product?.minOrderQuantity ?? 1}
             />
           ))}
         </div>
       </div>
-
-    </div >
+    </div>
   )
 }
-

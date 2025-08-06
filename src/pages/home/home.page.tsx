@@ -168,6 +168,7 @@ const HomePage = () => {
                     rating={4.5}
                     reviews={120 + index}
                     discount={Math.floor(((149.99 - (99.99 - index * 5)) / 149.99) * 100)}
+
                   />
                 </CarouselItem>
               ))}
@@ -345,10 +346,10 @@ const HomePage = () => {
       </section>
 
       {/* Newsletter */}
-   
+
 
       {/* Footer */}
-      
+
     </div>
 
 

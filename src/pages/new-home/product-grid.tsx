@@ -118,6 +118,7 @@ export default function ProductGrid({ isFilterVisible }: { isFilterVisible: bool
                     image={product.image}
                     color={product.color}
                     slug={product.slug}
+                    
                 />
             ))}
         </div>

@@ -36,7 +36,11 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
     status: Yup.string().matches(/^(active|inactive)$/).default('inactive'),
     stock: Yup.number().min(0).required(),
     brand: Yup.string().notRequired(),
-    discount: Yup.number().min(0).max(100).optional().default(0)
+    discount: Yup.number().min(0).max(100).optional().default(0),
+    minOrderQuantity: Yup.number().min(1).optional().default(1),
+    discountOnQuantity: Yup.number().min(0).max(100).optional().default(0)
+
+
   })
 
   const { control, handleSubmit, setError, formState: { errors } } = useForm({
@@ -49,7 +53,9 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
       status: 'inactive',
       stock: 0,
       brand: '',
-      discount: 0
+      discount: 0,
+      minOrderQuantity: 1,
+      discountOnQuantity: 0
     }
   })
 
@@ -109,7 +115,7 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
 
   return (
 
-    <form onSubmit={handleSubmit(submitForm)} className="space-y-6 pt-6" >
+    <form onSubmit={handleSubmit(submitForm)} className="space-y-2 pt-4 mr" >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Image upload section - Column 1 */}
         <div className="flex flex-col items-center justify-start">
@@ -140,7 +146,7 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
         </div>
 
         {/* Main form fields - Columns 2-3 */}
-        <div className="md:col-span-2 space-y-6">
+        <div className="md:col-span-2 space-y-3">
           <div className="space-y-2">
             <Label className="text-black">Product Name</Label>
             <TextInputField
@@ -165,7 +171,7 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
       </div>
 
       {/* Price, Discount, Stock, Brand section */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <div>
           <Label>Price (Nrs)</Label>
           <TextInputField
@@ -185,6 +191,16 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
             control={control}
           />
         </div>
+        <div>
+          <Label>MinOrderQuantity</Label>
+          <TextInputField
+            type={InputType.NUMBER}
+            name="minOrderQuantity"
+            errMsg={errors?.minOrderQuantity?.message as string}
+            control={control}
+          />
+        </div>
+
 
         <div>
           <Label>Stock</Label>
@@ -195,6 +211,7 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
             errMsg={errors?.stock?.message as string}
           />
         </div>
+
 
         <div>
           <Label>Brand</Label>
@@ -218,7 +235,17 @@ export function AddProductForm({ onSuccess }: AddProductFormProps): JSX.Element 
             )}
           />
         </div>
+        <div>
+          <Label >(%)offbyQuantity</Label>
+          <TextInputField
+            type={InputType.NUMBER}
+            name="discountOnQuantity"
+            errMsg={errors?.discountOnQuantity?.message as string}
+            control={control}
+          />
+        </div>
       </div>
+
 
       {/* Category selector */}
       <div className="space-y-2">

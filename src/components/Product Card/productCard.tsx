@@ -2,7 +2,7 @@ import { Heart, ShoppingCart, Star } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-import { useContext,  useState } from "react";
+import { useContext, useState } from "react";
 import orderSvc from "@/pages/orders/order.service";
 import { AuthContext } from "@/context/auth-context";
 import { toast } from "react-toastify";
@@ -24,7 +24,8 @@ export function ProductCard({
   isFeatured,
   isBestseller,
   onClick,
-  productId
+  productId,
+  minOrderQuantity
 }: any) {
 
   const navigate = useNavigate()
@@ -149,8 +150,12 @@ export function ProductCard({
 
                 if (productId) {
                   const id: string = productId;
-                  const quantity = 1;
+                  const quantity = minOrderQuantity ?? 1;
+
                   addToCart(id, quantity);
+                  if (minOrderQuantity && quantity < minOrderQuantity) {
+                    toast.info("Minimum order quantity is " + minOrderQuantity)
+                  }
                   return
                 }
 

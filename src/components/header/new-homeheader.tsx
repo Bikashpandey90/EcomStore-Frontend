@@ -35,19 +35,7 @@ const HomeHeaderNew = () => {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-    // useEffect(() => {
-    //     const fetchCartProducts = async () => {
-    //         try {
-    //             const response = await orderSvc.getMyCart();
-    //             console.log("Cart API Response:", response);
-    //             setCarts(response?.detail || []);
-    //         } catch (exception) {
-    //             console.error("Error fetching cart:", exception);
-    //             setCarts([]);
-    //         }
-    //     };
-    //     fetchCartProducts();
-    // }, []);
+
 
     const LogOut = () => {
         try {
@@ -307,32 +295,32 @@ const HomeHeaderNew = () => {
                                                         <h3 className="font-bold mb-3">Electronics</h3>
                                                         <ul className="space-y-2">
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/smartphones" className="text-muted-foreground hover:text-primary">
                                                                     Smartphones
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/laptops" className="text-muted-foreground hover:text-primary">
                                                                     Laptops
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/tablets" className="text-muted-foreground hover:text-primary">
                                                                     Tablets
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/headphones" className="text-muted-foreground hover:text-primary">
                                                                     Headphones
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/cameras" className="text-muted-foreground hover:text-primary">
                                                                     Cameras
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/smart-watches" className="text-muted-foreground hover:text-primary">
                                                                     Smart Watches
                                                                 </NavLink>
                                                             </li>
@@ -342,32 +330,32 @@ const HomeHeaderNew = () => {
                                                         <h3 className="font-bold mb-3">Fashion</h3>
                                                         <ul className="space-y-2">
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/mens-clothing" className="text-muted-foreground hover:text-primary">
                                                                     Men's Clothing
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/womens-clothing" className="text-muted-foreground hover:text-primary">
                                                                     Women's Clothing
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/shoes" className="text-muted-foreground hover:text-primary">
                                                                     Shoes
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/accessories" className="text-muted-foreground hover:text-primary">
                                                                     Accessories
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/jewelry" className="text-muted-foreground hover:text-primary">
                                                                     Jewelry
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/watches" className="text-muted-foreground hover:text-primary">
                                                                     Watches
                                                                 </NavLink>
                                                             </li>
@@ -377,32 +365,32 @@ const HomeHeaderNew = () => {
                                                         <h3 className="font-bold mb-3">Home & Kitchen</h3>
                                                         <ul className="space-y-2">
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/furniture" className="text-muted-foreground hover:text-primary">
                                                                     Furniture
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/appliances" className="text-muted-foreground hover:text-primary">
                                                                     Appliances
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/cookware" className="text-muted-foreground hover:text-primary">
                                                                     Cookware
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/bedding" className="text-muted-foreground hover:text-primary">
                                                                     Bedding
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/decor" className="text-muted-foreground hover:text-primary">
                                                                     Decor
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/lighting" className="text-muted-foreground hover:text-primary">
                                                                     Lighting
                                                                 </NavLink>
                                                             </li>
@@ -427,32 +415,32 @@ const HomeHeaderNew = () => {
                                                         <h3 className="font-bold mb-3">Beauty & Health</h3>
                                                         <ul className="space-y-2">
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/skincare" className="text-muted-foreground hover:text-primary">
                                                                     Skincare
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/makeup" className="text-muted-foreground hover:text-primary">
                                                                     Makeup
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/hair-care" className="text-muted-foreground hover:text-primary">
                                                                     Hair Care
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/fragrances" className="text-muted-foreground hover:text-primary">
                                                                     Fragrances
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/personal-care" className="text-muted-foreground hover:text-primary">
                                                                     Personal Care
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/health-supplements" className="text-muted-foreground hover:text-primary">
                                                                     Health Supplements
                                                                 </NavLink>
                                                             </li>
@@ -462,38 +450,39 @@ const HomeHeaderNew = () => {
                                                         <h3 className="font-bold mb-3">Sports & Outdoors</h3>
                                                         <ul className="space-y-2">
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/exercise-equipment" className="text-muted-foreground hover:text-primary">
                                                                     Exercise Equipment
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/outdoor-recreation" className="text-muted-foreground hover:text-primary">
                                                                     Outdoor Recreation
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/sports-apparel" className="text-muted-foreground hover:text-primary">
                                                                     Sports Apparel
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/team-sports" className="text-muted-foreground hover:text-primary">
                                                                     Team Sports
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/camping-hiking" className="text-muted-foreground hover:text-primary">
                                                                     Camping & Hiking
                                                                 </NavLink>
                                                             </li>
                                                             <li>
-                                                                <NavLink to="#" className="text-muted-foreground hover:text-primary">
+                                                                <NavLink to="/category/water-sports" className="text-muted-foreground hover:text-primary">
                                                                     Water Sports
                                                                 </NavLink>
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         )}
                                     </>

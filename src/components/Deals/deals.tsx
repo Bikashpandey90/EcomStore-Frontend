@@ -73,6 +73,7 @@ const DealSection = () => {
                                     reviews={120 + index}
                                     discount={product.discount}
                                     productId={product._id}
+                                    minOrderQuantity={product?.minOrderQuantity ?? 1}
                                 />
                             </CarouselItem>
                         ))}

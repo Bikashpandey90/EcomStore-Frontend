@@ -25,6 +25,7 @@ export interface Product {
     discount: number;
     actualAmt: number;
     images: any;
+    minOrderQuantity?: number
 }
 
 export interface Cart {

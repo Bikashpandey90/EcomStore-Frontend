@@ -43,6 +43,7 @@ const RecentlyViewed = () => {
                                 originalPrice={product.price}
                                 onClick={product.slug}
                                 isNew={true}
+                                minOrderQuantity={product?.minOrderQuantity ?? 1}
 
                             />
                         </CarouselItem>

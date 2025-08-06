@@ -9,103 +9,10 @@ import { Product } from "@/components/Shopping Cart PopOver/shopping-cart"
 import brandSvc, { BrandData } from "./brand.service"
 import { ProductCard } from "@/components/Product Card/productCard"
 
-// // Sample brand data
 
-
-// Sample product categories
 const categories = ["All Products", "Smartphones", "Laptops", "Tablets", "Wearables", "Audio", "Smart Home"]
 
-// Sample products data
-// const products = [
-//     {
-//         id: 1,
-//         name: "TechVision Pro Smartphone",
-//         price: 799.99,
-//         rating: 4.7,
-//         reviewCount: 1245,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Smartphones",
-//     },
-//     {
-//         id: 2,
-//         name: "TechVision Ultra Laptop",
-//         price: 1299.99,
-//         rating: 4.5,
-//         reviewCount: 867,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Laptops",
-//     },
-//     {
-//         id: 3,
-//         name: "TechVision Tab 10",
-//         price: 499.99,
-//         rating: 4.3,
-//         reviewCount: 532,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Tablets",
-//     },
-//     {
-//         id: 4,
-//         name: "TechVision SmartWatch X",
-//         price: 299.99,
-//         rating: 4.6,
-//         reviewCount: 978,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Wearables",
-//     },
-//     {
-//         id: 5,
-//         name: "TechVision Noise-Cancelling Headphones",
-//         price: 249.99,
-//         rating: 4.8,
-//         reviewCount: 1532,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Audio",
-//     },
-//     {
-//         id: 6,
-//         name: "TechVision Smart Speaker",
-//         price: 129.99,
-//         rating: 4.4,
-//         reviewCount: 765,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Smart Home",
-//     },
-//     {
-//         id: 7,
-//         name: "TechVision Wireless Earbuds",
-//         price: 159.99,
-//         rating: 4.5,
-//         reviewCount: 1023,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Audio",
-//     },
-//     {
-//         id: 8,
-//         name: "TechVision Smart Thermostat",
-//         price: 179.99,
-//         rating: 4.2,
-//         reviewCount: 456,
-//         image: "/placeholder.svg?height=300&width=300",
-//         category: "Smart Home",
-//     },
-// ]
 
-//  const brandData = {
-//      name: s,
-//      logo: "/placeholder.svg?height=60&width=120",
-//      description:
-// //          "TechVision: Innovating for a smarter tomorrow. Our cutting-edge consumer electronics blend style with functionality to enhance your daily life.",
-//      foundedYear: 2005,
-//      headquarters: "Silicon Valley, CA",
-//      keyFeatures: [
-//          "Industry-leading 5-year warranty",
-//          "30-day money-back guarantee",
-//          "24/7 customer support",
-//          "Eco-friendly packaging",
-//          "Free software updates for life",
-//      ],
-//  }
 
 export default function BrandProductListing() {
     const [selectedCategory, setSelectedCategory] = useState("All Products")
@@ -222,45 +129,10 @@ export default function BrandProductListing() {
                                     price={product.actualAmt}
                                     rating={4 + (index % 2) * 0.5}
                                     reviews={50 + index * 5}
-
                                     productId={product._id}
+                                    minOrderQuantity={product?.minOrderQuantity ?? 1}
                                 />
-                                // <div key={product._id} className="border rounded-md overflow-hidden hover:shadow-md transition-shadow">
-                                //     <NavLink to={`/product/${product._id}`}>
-                                //         <div className="aspect-square relative">
-                                //             <img
-                                //                 src={product.images[0] || "/placeholder.svg"}
-                                //                 alt={product.title}
-
-                                //                 className="object-cover"
-                                //             />
-                                //         </div>
-                                //     </NavLink>
-                                //     <div className="p-4">
-                                //         <NavLink to={`/product/${product._id}`} className="hover:text-primary">
-                                //             <h3 className="font-medium line-clamp-2 mb-1 text-sm sm:text-base">{product.title}</h3>
-                                //         </NavLink>
-                                //         <div className="flex items-center mb-1">
-                                //             <div className="flex">
-                                //                 {/* {Array.from({ length: 5 }).map((_, i) => (
-                                //                     <Star
-                                //                         key={i}
-                                //                         className={`h-3 w-3 sm:h-4 sm:w-4 ${i < Math.floor(product.rating)
-                                //                             ? "fill-yellow-400 text-yellow-400"
-                                //                             : i < product.rating
-                                //                                 ? "fill-yellow-400 text-yellow-400 fill-half"
-                                //                                 : "text-gray-300"
-                                //                             }`}
-                                //                     />
-                                //                 ))} */}
-                                //             </div>
-                                //             <span className="text-xs text-muted-foreground ml-1">
-                                //                 {/* ({product.reviewCount.toLocaleString()}) */}
-                                //             </span>
-                                //         </div>
-                                //         <div className="text-base sm:text-lg font-bold">${product.price.toFixed(2)}</div>
-                                //     </div>
-                                // </div>
+                               
                             ))}
                         </div>
 

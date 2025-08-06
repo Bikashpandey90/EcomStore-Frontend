@@ -36,7 +36,8 @@ export interface Product {
     slug: string
   }
   stock: number
-
+  minOrderQuantity?: number
+  discountOnQuantity?: number
   discount: number
   actualAmt: number
   description: string

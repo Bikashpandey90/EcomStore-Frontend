@@ -4003,7 +4003,7 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lucide-react@^0.471.1:
+lucide-react@^0.471.2:
   version "0.471.2"
   resolved "https://registry.npmjs.org/lucide-react/-/lucide-react-0.471.2.tgz"
   integrity sha512-A8fDycQxGeaSOTaI7Bm4fg8LBXO7Qr9ORAX47bDRvugCsjLIliugQO0PkKFoeAD57LIQwlWKd3NIQ3J7hYp84g==

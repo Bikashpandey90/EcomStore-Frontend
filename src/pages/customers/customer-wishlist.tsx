@@ -28,7 +28,8 @@ interface WishlistItem {
         discount: number
         actualAmt: number
         images: string[]
-        stock: number
+        stock: number,
+        minOrderQuantity?: number
     }
     createdAt: string
     updatedAt: string
@@ -199,7 +200,7 @@ export default function WishlistPage() {
                                         <Button
                                             variant="default"
                                             size="sm"
-                                            onClick={() => addToCart(item.product._id, 1)}
+                                            onClick={() => addToCart(item.product._id, item.product?.minOrderQuantity ?? 1)}
                                             disabled={!item.product.stock || loading}
                                             className="flex-1 h-8 text-xs"
 
@@ -314,6 +315,8 @@ export default function WishlistPage() {
                             reviews={120 + index}
                             discount={product.discount}
                             productId={product._id}
+                            minOrderQuantity={product?.minOrderQuantity ?? 1}
+
                         />
                     ))}
                 </div>
