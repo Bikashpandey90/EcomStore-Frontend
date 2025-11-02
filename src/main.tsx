@@ -29,7 +29,9 @@ import { CartProvider } from "./context/cart-context";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    
     <Provider store={store}>
+      
       <CartProvider>
         <Routing />
       </CartProvider>
