@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode 
                     className="w-full h-1/2 bg-white flex justify-center items-end absolute transition-transform duration-1000 ease-in-out top-0 pb-[2%]"
                 >
                     <div className="w-[15vw] h-[15vw] max-w-[180px] max-h-[180px] overflow-hidden mb-[3%]">
-                        <img className="w-full h-full rounded-full" src="/src/context/image.png" alt="Logo" />
+                        <img className="w-full h-full rounded-full" src="/image.png" alt="Logo" />
                     </div>
                 </div>
                 <div
