@@ -44,10 +44,7 @@ import BrandsListingPage from "@/pages/brand/brand-listing";
 import WishlistPage from "@/pages/customers/customer-wishlist";
 import BlogPage from "@/pages/blog/blog";
 import CustomerOrderListing from "@/pages/customer/orders-page";
-import NewLandingPage from "@/pages/new-home/page";
-import NewProductPage from "@/pages/new-home/product-page";
-import ListPage from "@/pages/new-home/list-page";
-import MainHome from "@/pages/new-home/mainpage";
+
 
 
 
